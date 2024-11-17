@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact List Manager</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .controls {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .contact-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .contact-card {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
+            transition: transform 0.2s;
+        }
+
+        .contact-card:hover {
+            transform: translateX(5px);
+        }
+
+        .contact-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .contact-info {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .highlights {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+
+        .highlight-title {
+            color: #666;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Contact List Manager</h1>
+        
+        <div class="controls">
+            <button onclick="displayContacts()">Display All Contacts</button>
+            <button onclick="addNewContact()">Add New Contact</button>
+            <button onclick="showFirstAndLast()">Show First & Last</button>
+        </div>
+
+        <div id="contactList" class="contact-list">
+            <!-- Contacts will be displayed here -->
+        </div>
+
+        <div id="highlights" class="highlights">
+            <!-- First and last contacts will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        // Initialize the contact list with three users
+        let contacts = [
+            {
+                name: "John Doe",
+                phone: "1234 567 890",
+                email: "john.doe@example.com"
+            },
+            {
+                name: "Jane Smith",
+                phone: "2345 678 901",
+                email: "jane.smith@example.com"
+            },
+            {
+                name: "Bob Johnson",
+                phone: "3456 789 012",
+                email: "bob.johnson@example.com"
+            }
+        ];
+
+        // Function to display the contact list
+        function displayContacts() {
+            const contactListDiv = document.getElementById('contactList');
+            contactListDiv.innerHTML = '';
+            document.getElementById('highlights').innerHTML = '';
+
+            contacts.forEach(contact => {
+                const contactCard = createContactCard(contact);
+                contactListDiv.appendChild(contactCard);
+            });
+        }
+
+        // Function to create a contact card
+        function createContactCard(contact) {
+            const div = document.createElement('div');
+            div.className = 'contact-card';
+            div.innerHTML = `
+                <div class="contact-name">${contact.name}</div>
+                <div class="contact-info">
+                    <div>📱 ${contact.phone}</div>
+                    <div>📧 ${contact.email}</div>
+                </div>
+            `;
+            return div;
+        }
+
+        // Function to add a new contact
+        function addNewContact() {
+            const newContact = {
+                name: "Maisie Haley",
+                phone: "0913 531 3030",
+                email: "risus.Quisque@urna.ca"
+            };
+            contacts.push(newContact);
+            displayContacts();
+        }
+
+        // Function to show first and last contacts
+        function showFirstAndLast() {
+            const highlightsDiv = document.getElementById('highlights');
+            document.getElementById('contactList').innerHTML = '';
+            
+            highlightsDiv.innerHTML = `
+                <div class="highlight-title">First and Last Contacts</div>
+            `;
+            
+            const firstContact = createContactCard(contacts[0]);
+            const lastContact = createContactCard(contacts[contacts.length - 1]);
+            
+            highlightsDiv.appendChild(firstContact);
+            highlightsDiv.appendChild(lastContact);
+        }
+
+        // Display contacts when page loads
+        displayContacts();
+    </script>
+</div>
+</body>
+</html> 
